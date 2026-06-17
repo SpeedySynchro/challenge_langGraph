@@ -1,0 +1,12 @@
+# Geheimnisse
+.env
+
+# Virtuelle Umgebung
+.venv/
+
+# Python-Cache
+__pycache__/
+*.pyc
+
+# Lokale Chroma-Datenbank (wird von ingest.py erzeugt)
+chroma_db/

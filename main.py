@@ -1,16 +1,25 @@
-# This is a sample Python script.
+"""Einstiegspunkt: Frage stellen und Antwort des Agenten ausgeben."""
 
-# Press Shift+F10 to execute it or replace it with your code.
-# Press Double Shift to search everywhere for classes, files, tool windows, actions, and settings.
-
-
-def print_hi(name):
-    # Use a breakpoint in the code line below to debug your script.
-    print(f'Hi, {name}')  # Press Ctrl+F8 to toggle the breakpoint.
+from langchain_core.messages import HumanMessage
+from agent import agent
 
 
-# Press the green button in the gutter to run the script.
-if __name__ == '__main__':
-    print_hi('PyCharm')
+def frage_stellen(frage: str) -> str:
+    """Schickt eine Frage an den Agenten und gibt die finale Antwort zurueck."""
+    print(f"\nFrage: {frage}")
+    print("-" * 50)
 
-# See PyCharm help at https://www.jetbrains.com/help/pycharm/
+    ergebnis = agent.invoke({
+        "messages": [HumanMessage(content=frage)]
+    })
+
+    finale_antwort = ergebnis["messages"][-1].content
+    print(f"Antwort: {finale_antwort}")
+    return finale_antwort
+
+
+if __name__ == "__main__":
+
+    frage_stellen("Was kostet Bitcoin gerade?")
+    frage_stellen("Wie sind eure Versandkosten?")
+    frage_stellen("Was sind die aktuellen KI-Neuigkeiten?")
