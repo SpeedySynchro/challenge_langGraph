@@ -1,6 +1,7 @@
 """Einstiegspunkt: Frage stellen und Antwort des Agenten ausgeben."""
 
 from langchain_core.messages import HumanMessage
+from langgraph.errors import GraphRecursionError
 from agent import agent
 
 
@@ -9,11 +10,14 @@ def frage_stellen(frage: str) -> str:
     print(f"\nFrage: {frage}")
     print("-" * 50)
 
-    ergebnis = agent.invoke({
-        "messages": [HumanMessage(content=frage)]
-    })
+    try:
+        ergebnis = agent.invoke({
+            "messages": [HumanMessage(content=frage)]
+        })
+        finale_antwort = ergebnis["messages"][-1].content
+    except GraphRecursionError:
+        finale_antwort = "Das konnte ich nicht verlässlich klären (Schrittlimit erreicht)."
 
-    finale_antwort = ergebnis["messages"][-1].content
     print(f"Antwort: {finale_antwort}")
     return finale_antwort
 

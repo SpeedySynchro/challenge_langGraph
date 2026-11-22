@@ -4,6 +4,9 @@
 # Virtuelle Umgebung
 .venv/
 
+# IDE-Einstellungen
+.idea/
+
 # Python-Cache
 __pycache__/
 *.pyc
